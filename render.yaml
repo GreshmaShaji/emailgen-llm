@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: emailgen-llm
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: HF_TOKEN
+        value: false
+      - key: OPENAI_API_KEY
+        value: false
