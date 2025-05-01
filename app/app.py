@@ -10,7 +10,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # UI Setup
 st.set_page_config(page_title="Smart Email Generator", layout="centered")
 st.title("📬 AI Email Generator")
-st.markdown("Generate smart, personalized emails for various purposes using AI.")
+st.markdown("Struggling to write the perfect email? Let AI write it beautifully for you — job apps, thank you notes, or cold outreach!")
 
 # Inputs
 role = st.text_input("Your Role", placeholder="e.g., Data Scientist")
@@ -52,3 +52,9 @@ if st.button("✉️ Generate Email"):
             st.text_area("✉️ Your AI-generated email", value=email, height=300)
         except Exception as e:
             st.error(f"Error: {str(e)}")
+
+st.code(email, language="markdown")
+st.markdown("""
+<button onclick="navigator.clipboard.writeText(document.querySelector('code').innerText)">📋 Copy to Clipboard</button>
+""", unsafe_allow_html=True)
+
