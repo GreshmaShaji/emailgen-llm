@@ -50,7 +50,8 @@ if st.button("✉️ Generate Email"):
             )
             email = response.choices[0].message.content.strip()
             st.success("Done!")
-            st.text_area("✉️ Your AI-generated email", value=email, height=300)
+            st.markdown("### Here is your AI-generated email:")
+            st.markdown("#### 📧 Email Preview")
 
             # Add output features
             st.download_button(
