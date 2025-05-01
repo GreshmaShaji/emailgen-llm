@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "AI Email Generator",
+    "version": "1.0",
+    "description": "Generate smart emails with AI for any purpose.",
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": "icon.png"
+    },
+    "permissions": ["scripting", "activeTab"],
+    "host_permissions": [
+      "https://emailgen-llm.streamlit.app/"
+    ]
+  }
+  

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Email Generator</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <h2>✉️ AI Email Generator</h2>
+  <input id="role" placeholder="Your Role" />
+  <input id="company" placeholder="Company" />
+  <select id="purpose">
+    <option>Job Application</option>
+    <option>Interview Follow-up</option>
+    <option>Cold Outreach</option>
+    <option>Thank You</option>
+    <option>Freelance Proposal</option>
+  </select>
+  <textarea id="context" placeholder="Details about your experience..."></textarea>
+  <button id="generate">Generate Email</button>
+  <pre id="result"></pre>
+  <script src="popup.js"></script>
+</body>
+</html>
