@@ -10,7 +10,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # UI Setup
 st.set_page_config(page_title="Smart Email Generator", layout="centered")
 st.title("📬 AI Email Generator")
-st.markdown("Generate smart, personalized emails using GPT-3.5")
+st.markdown("Generate smart, personalized emails for various purposes using AI.")
 
 # Inputs
 role = st.text_input("Your Role", placeholder="e.g., Data Scientist")
@@ -23,12 +23,25 @@ context = st.text_area("Extra Details", placeholder="Mention project, experience
 if st.button("✉️ Generate Email"):
     with st.spinner("Generating email..."):
         prompt = f"""
-Category: {purpose.lower().replace(" ", "_")}
-Context: A {role} writing to {company}. Tone: {tone}.
-Details: {context}
+            You are an expert email writer assistant.
 
-Write the email:
-"""
+            Write a well-structured, professional email for the following situation:
+            - Role: {role}
+            - Target Company: {company}
+            - Purpose: {purpose}
+            - Tone: {tone}
+            - Extra Details: {context}
+
+            The email should:
+            - Start with a friendly, confident opening
+            - Include at least 1 specific skill or achievement from the context
+            - Mention why the applicant is interested in {company}
+            - Sound like a real human wrote it
+            - Include a professional sign-off
+
+            Format the output as an email body, ready to be sent.
+        """
+        # Generate email using OpenAI API
         try:
             response = client.chat.completions.create(
                 model="ft:gpt-4.1-2025-04-14:personal::BSQP6Qtn",  # Replace with fine-tuned model later
