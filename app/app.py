@@ -16,7 +16,8 @@ st.markdown("Struggling to write the perfect email? Let AI write it beautifully 
 role = st.text_input("Your Role", placeholder="e.g., Data Scientist")
 company = st.text_input("Company", placeholder="e.g., Google")
 purpose = st.selectbox("Purpose", ["Job Application", "Follow-up", "Cold Outreach", "Thank You", "Freelance Proposal"])
-tone = st.selectbox("Tone", ["Professional", "Polite", "Friendly", "Persuasive"])
+tone = st.selectbox("Tone", ["Professional", "Polite", "Friendly", "Persuasive","Confident", "Formal", "Playful"])
+length_pref = st.selectbox("Length", ["Concise", "Medium", "Detailed"])
 context = st.text_area("Extra Details", placeholder="Mention project, experience, etc.")
 
 # Generate
@@ -25,7 +26,7 @@ if st.button("✉️ Generate Email"):
         prompt = f"""
             You are an expert email writer assistant.
 
-            Write a well-structured, professional email for the following situation:
+            Write a {length_pref.lower()} well-structured, professional email for the following situation:
             - Role: {role}
             - Target Company: {company}
             - Purpose: {purpose}
@@ -50,11 +51,26 @@ if st.button("✉️ Generate Email"):
             email = response.choices[0].message.content.strip()
             st.success("Done!")
             st.text_area("✉️ Your AI-generated email", value=email, height=300)
+
+            # Add output features
+            st.download_button(
+                label="📩 Download Email",
+                data=email,
+                file_name="ai_generated_email.txt",
+                mime="text/plain"
+            )
+
+            st.code(email, language="markdown")
+            st.markdown("""
+            <button onclick="navigator.clipboard.writeText(document.querySelector('code').innerText)">
+            📋 Copy to Clipboard</button>
+            """, unsafe_allow_html=True)
         except Exception as e:
             st.error(f"Error: {str(e)}")
 
-st.code(email, language="markdown")
-st.markdown("""
-<button onclick="navigator.clipboard.writeText(document.querySelector('code').innerText)">📋 Copy to Clipboard</button>
-""", unsafe_allow_html=True)
 
+feedback = st.text_area("🎯 Suggest improvements", placeholder="What would you change in this email?")
+if st.button("Submit Feedback"):
+    with open("feedback_log.txt", "a") as f:
+        f.write(f"\n\nEMAIL:\n{email}\nFEEDBACK:\n{feedback}\n{'-'*40}")
+    st.success("Thanks! Your feedback was saved.")
